@@ -117,14 +117,12 @@ class PReLU(Layer):
         set `shared_axes=[1, 2]`.
     """
 
-    def __init__(
-        self,
-        alpha_initializer="zeros",
-        alpha_regularizer=None,
-        alpha_constraint=None,
-        shared_axes=None,
-        **kwargs
-    ):
+    def __init__(self,
+                 alpha_initializer="zeros",
+                 alpha_regularizer=None,
+                 alpha_constraint=None,
+                 shared_axes=None,
+                 **kwargs):
         super(PReLU, self).__init__(**kwargs)
         self.supports_masking = True
         self.alpha_initializer = initializers.get(alpha_initializer)
@@ -166,8 +164,10 @@ class PReLU(Layer):
 
     def get_config(self):
         config = {
-            "alpha_initializer": initializers.serialize(self.alpha_initializer),
-            "alpha_regularizer": regularizers.serialize(self.alpha_regularizer),
+            "alpha_initializer":
+            initializers.serialize(self.alpha_initializer),
+            "alpha_regularizer":
+            regularizers.serialize(self.alpha_regularizer),
             "alpha_constraint": constraints.serialize(self.alpha_constraint),
             "shared_axes": self.shared_axes,
         }
@@ -250,7 +250,8 @@ class ThresholdedReLU(Layer):
 
     def call(self, inputs):
         theta = math_ops.cast(self.theta, inputs.dtype)
-        return inputs * math_ops.cast(math_ops.greater(inputs, theta), inputs.dtype)
+        return inputs * math_ops.cast(math_ops.greater(inputs, theta),
+                                      inputs.dtype)
 
     def get_config(self):
         config = {"theta": float(self.theta)}
@@ -344,21 +345,19 @@ class ReLU(Layer):
       threshold: Float. Threshold value for thresholded activation. Default to 0.
     """
 
-    def __init__(self, max_value=None, negative_slope=0, threshold=0, **kwargs):
+    def __init__(self, max_value=None, negative_slope=0, threshold=0,
+                 **kwargs):
         super(ReLU, self).__init__(**kwargs)
         if max_value is not None and max_value < 0.0:
-            raise ValueError(
-                "max_value of Relu layer " "cannot be negative value: " + str(max_value)
-            )
+            raise ValueError("max_value of Relu layer "
+                             "cannot be negative value: " + str(max_value))
         if negative_slope < 0.0:
-            raise ValueError(
-                "negative_slope of Relu layer "
-                "cannot be negative value: " + str(negative_slope)
-            )
+            raise ValueError("negative_slope of Relu layer "
+                             "cannot be negative value: " +
+                             str(negative_slope))
         if threshold is None:
-            raise ValueError(
-                "threshold of Relu layer " "cannot be None. Required a float"
-            )
+            raise ValueError("threshold of Relu layer "
+                             "cannot be None. Required a float")
 
         self.support_masking = True
         if max_value is not None:
