@@ -29,7 +29,7 @@ from tensorflow.python.ops import math_ops
 from tensorflow.python.util.tf_export import keras_export
 
 
-@keras_export('keras.layers.LeakyReLU')
+@keras_export("keras.layers.LeakyReLU")
 class LeakyReLU(Layer):
     """Leaky version of a Rectified Linear Unit.
 
@@ -73,7 +73,7 @@ class LeakyReLU(Layer):
         return K.relu(inputs, alpha=self.alpha)
 
     def get_config(self):
-        config = {'alpha': float(self.alpha)}
+        config = {"alpha": float(self.alpha)}
         base_config = super(LeakyReLU, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
 
@@ -82,7 +82,7 @@ class LeakyReLU(Layer):
         return input_shape
 
 
-@keras_export('keras.layers.PReLU')
+@keras_export("keras.layers.PReLU")
 class PReLU(Layer):
     """Parametric Rectified Linear Unit.
 
@@ -117,12 +117,14 @@ class PReLU(Layer):
         set `shared_axes=[1, 2]`.
     """
 
-    def __init__(self,
-                 alpha_initializer='zeros',
-                 alpha_regularizer=None,
-                 alpha_constraint=None,
-                 shared_axes=None,
-                 **kwargs):
+    def __init__(
+        self,
+        alpha_initializer="zeros",
+        alpha_regularizer=None,
+        alpha_constraint=None,
+        shared_axes=None,
+        **kwargs
+    ):
         super(PReLU, self).__init__(**kwargs)
         self.supports_masking = True
         self.alpha_initializer = initializers.get(alpha_initializer)
@@ -143,10 +145,11 @@ class PReLU(Layer):
                 param_shape[i - 1] = 1
         self.alpha = self.add_weight(
             shape=param_shape,
-            name='alpha',
+            name="alpha",
             initializer=self.alpha_initializer,
             regularizer=self.alpha_regularizer,
-            constraint=self.alpha_constraint)
+            constraint=self.alpha_constraint,
+        )
         # Set input spec
         axes = {}
         if self.shared_axes:
@@ -163,10 +166,10 @@ class PReLU(Layer):
 
     def get_config(self):
         config = {
-            'alpha_initializer': initializers.serialize(self.alpha_initializer),
-            'alpha_regularizer': regularizers.serialize(self.alpha_regularizer),
-            'alpha_constraint': constraints.serialize(self.alpha_constraint),
-            'shared_axes': self.shared_axes
+            "alpha_initializer": initializers.serialize(self.alpha_initializer),
+            "alpha_regularizer": regularizers.serialize(self.alpha_regularizer),
+            "alpha_constraint": constraints.serialize(self.alpha_constraint),
+            "shared_axes": self.shared_axes,
         }
         base_config = super(PReLU, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
@@ -176,7 +179,7 @@ class PReLU(Layer):
         return input_shape
 
 
-@keras_export('keras.layers.ELU')
+@keras_export("keras.layers.ELU")
 class ELU(Layer):
     """Exponential Linear Unit.
 
@@ -208,7 +211,7 @@ class ELU(Layer):
         return K.elu(inputs, self.alpha)
 
     def get_config(self):
-        config = {'alpha': float(self.alpha)}
+        config = {"alpha": float(self.alpha)}
         base_config = super(ELU, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
 
@@ -217,7 +220,7 @@ class ELU(Layer):
         return input_shape
 
 
-@keras_export('keras.layers.ThresholdedReLU')
+@keras_export("keras.layers.ThresholdedReLU")
 class ThresholdedReLU(Layer):
     """Thresholded Rectified Linear Unit.
 
@@ -250,7 +253,7 @@ class ThresholdedReLU(Layer):
         return inputs * math_ops.cast(math_ops.greater(inputs, theta), inputs.dtype)
 
     def get_config(self):
-        config = {'theta': float(self.theta)}
+        config = {"theta": float(self.theta)}
         base_config = super(ThresholdedReLU, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
 
@@ -259,7 +262,7 @@ class ThresholdedReLU(Layer):
         return input_shape
 
 
-@keras_export('keras.layers.Softmax')
+@keras_export("keras.layers.Softmax")
 class Softmax(Layer):
     """Softmax activation function.
 
@@ -284,7 +287,7 @@ class Softmax(Layer):
         return K.softmax(inputs, axis=self.axis)
 
     def get_config(self):
-        config = {'axis': self.axis}
+        config = {"axis": self.axis}
         base_config = super(Softmax, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
 
@@ -293,7 +296,7 @@ class Softmax(Layer):
         return input_shape
 
 
-@keras_export('keras.layers.ReLU')
+@keras_export("keras.layers.ReLU")
 class ReLU(Layer):
     """Rectified Linear Unit activation function.
 
@@ -343,15 +346,19 @@ class ReLU(Layer):
 
     def __init__(self, max_value=None, negative_slope=0, threshold=0, **kwargs):
         super(ReLU, self).__init__(**kwargs)
-        if max_value is not None and max_value < 0.:
-            raise ValueError('max_value of Relu layer '
-                             'cannot be negative value: ' + str(max_value))
-        if negative_slope < 0.:
-            raise ValueError('negative_slope of Relu layer '
-                             'cannot be negative value: ' + str(negative_slope))
+        if max_value is not None and max_value < 0.0:
+            raise ValueError(
+                "max_value of Relu layer " "cannot be negative value: " + str(max_value)
+            )
+        if negative_slope < 0.0:
+            raise ValueError(
+                "negative_slope of Relu layer "
+                "cannot be negative value: " + str(negative_slope)
+            )
         if threshold is None:
-            raise ValueError('threshold of Relu layer '
-                             'cannot be None. Required a float')
+            raise ValueError(
+                "threshold of Relu layer " "cannot be None. Required a float"
+            )
 
         self.support_masking = True
         if max_value is not None:
@@ -363,16 +370,18 @@ class ReLU(Layer):
     def call(self, inputs):
         # alpha is used for leaky relu slope in activations instead of
         # negative_slope.
-        return K.relu(inputs,
-                      alpha=self.negative_slope,
-                      max_value=self.max_value,
-                      threshold=self.threshold)
+        return K.relu(
+            inputs,
+            alpha=self.negative_slope,
+            max_value=self.max_value,
+            threshold=self.threshold,
+        )
 
     def get_config(self):
         config = {
-            'max_value': self.max_value,
-            'negative_slope': self.negative_slope,
-            'threshold': self.threshold
+            "max_value": self.max_value,
+            "negative_slope": self.negative_slope,
+            "threshold": self.threshold,
         }
         base_config = super(ReLU, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
