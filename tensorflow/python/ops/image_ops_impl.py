@@ -13,16 +13,30 @@
 # limitations under the License.
 # ==============================================================================
 """Implementation of image ops."""
-
-from __future__ import absolute_import, division, print_function
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 import numpy as np
+
 from tensorflow.python.compat import compat
-from tensorflow.python.framework import (constant_op, dtypes, ops, random_seed,
-                                         tensor_shape, tensor_util)
-from tensorflow.python.ops import (array_ops, check_ops, control_flow_ops,
-                                   gen_image_ops, math_ops, nn, nn_ops,
-                                   random_ops, sort_ops, string_ops, variables)
+from tensorflow.python.framework import constant_op
+from tensorflow.python.framework import dtypes
+from tensorflow.python.framework import ops
+from tensorflow.python.framework import random_seed
+from tensorflow.python.framework import tensor_shape
+from tensorflow.python.framework import tensor_util
+from tensorflow.python.ops import array_ops
+from tensorflow.python.ops import check_ops
+from tensorflow.python.ops import control_flow_ops
+from tensorflow.python.ops import gen_image_ops
+from tensorflow.python.ops import math_ops
+from tensorflow.python.ops import nn
+from tensorflow.python.ops import nn_ops
+from tensorflow.python.ops import random_ops
+from tensorflow.python.ops import sort_ops
+from tensorflow.python.ops import string_ops
+from tensorflow.python.ops import variables
 from tensorflow.python.util import deprecation
 from tensorflow.python.util.tf_export import tf_export
 

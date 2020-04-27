@@ -19,9 +19,12 @@ Reference paper:
   - [Identity Mappings in Deep Residual Networks]
     (https://arxiv.org/abs/1603.05027) (CVPR 2016)
 """
-from __future__ import absolute_import, division, print_function
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
-from tensorflow.python.keras.applications import imagenet_utils, resnet
+from tensorflow.python.keras.applications import imagenet_utils
+from tensorflow.python.keras.applications import resnet
 from tensorflow.python.util.tf_export import keras_export
 
 
