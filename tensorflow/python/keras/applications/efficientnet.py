@@ -20,9 +20,7 @@ Reference paper:
   - [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks]
     (https://arxiv.org/abs/1905.11946) (ICML 2019)
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+from __future__ import absolute_import, division, print_function
 
 import copy
 import math
@@ -32,10 +30,8 @@ from tensorflow.python.keras import backend
 from tensorflow.python.keras.applications import imagenet_utils
 from tensorflow.python.keras.engine import training
 from tensorflow.python.keras.layers import VersionAwareLayers
-from tensorflow.python.keras.utils import data_utils
-from tensorflow.python.keras.utils import layer_utils
+from tensorflow.python.keras.utils import data_utils, layer_utils
 from tensorflow.python.util.tf_export import keras_export
-
 
 BASE_WEIGHTS_PATH = "https://storage.googleapis.com/keras-applications/"
 

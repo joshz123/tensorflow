@@ -19,9 +19,7 @@ Reference:
   - [Deep Residual Learning for Image Recognition](
       https://arxiv.org/abs/1512.03385) (CVPR 2015)
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+from __future__ import absolute_import, division, print_function
 
 import os
 
@@ -29,10 +27,8 @@ from tensorflow.python.keras import backend
 from tensorflow.python.keras.applications import imagenet_utils
 from tensorflow.python.keras.engine import training
 from tensorflow.python.keras.layers import VersionAwareLayers
-from tensorflow.python.keras.utils import data_utils
-from tensorflow.python.keras.utils import layer_utils
+from tensorflow.python.keras.utils import data_utils, layer_utils
 from tensorflow.python.util.tf_export import keras_export
-
 
 BASE_WEIGHTS_PATH = (
     "https://storage.googleapis.com/tensorflow/keras-applications/resnet/"
